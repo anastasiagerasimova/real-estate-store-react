@@ -10,7 +10,7 @@ const Card = (props) => {
                 <div className="card__title">
                     ЖК {complex_name}
                 </div>
-                <div className="card__like">
+                <div className="card__like" onClick={(e) => e.preventDefault()}>
                     <i className="fas fa-heart"></i>
                 </div>
             </div>

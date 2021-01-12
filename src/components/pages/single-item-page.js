@@ -2,9 +2,9 @@ import React from 'react'
 
 import SingleItem from '../single-item'
 
-const SingleItemPage = () => {
+const SingleItemPage = ({selectedItemId}) => {
     return(
-        <SingleItem />
+        <SingleItem selectedItemId={selectedItemId}/>
     )
 }
 

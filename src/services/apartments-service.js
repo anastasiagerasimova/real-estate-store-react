@@ -17,4 +17,25 @@ export default class ApartmentsService{
         const data = await response.json()
         return await data
     }
+
+    getItem = async(id) => {
+        const queryString = `http://jsproject.webcademy.ru/items/${id}`
+        const response = await fetch(queryString)
+        const data = await response.json()
+        return await data
+    }
+
+    submitForm = async(formData)=> {
+        const queryString = 'http://jsproject.webcademy.ru/bidnew';
+
+        const response = await fetch(queryString, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(formData)
+        });
+        const data = await response.json();
+        return await data;
+    }
 }

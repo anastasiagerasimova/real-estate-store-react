@@ -47,6 +47,12 @@ const itemsLoaded = (value) => {
     }
 }
 
+const itemsRequested = () => {
+    return{
+        type: 'FETCH_ITEMS_REQUEST',
+    }
+}
+
 const setViewType = (value) => {
     return{
         type: 'SET_VIEW_TYPE',
@@ -67,6 +73,20 @@ const resetedFilter = () => {
     }
 }
 
+const addedToFavorites = (value) => {
+    return{
+        type: 'ADD_TO_FAVORITES',
+        payload: value
+    }
+}
+
+const removedFromFavorites = (value) => {
+    return{
+        type:'REMOVE_FROM_FAVORITES',
+        payload: value
+    }
+}
+
 export {
     addedComplex,
     addedRooms,
@@ -75,7 +95,10 @@ export {
     addedSquareMin,
     addedSquareMax,
     itemsLoaded,
+    itemsRequested,
     setViewType,
     sortedItems,
-    resetedFilter
+    resetedFilter,
+    addedToFavorites,
+    removedFromFavorites
 }

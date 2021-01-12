@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Form from '../form'
+import Filter from '../filter'
 import ViewPanel from '../view-panel'
 import Cards from '../cards'
 import List from '../list'
@@ -8,7 +8,7 @@ import List from '../list'
 const HomePage = () => {
     return(
         <div className="">
-            <Form />
+            <Filter />
             <ViewPanel />
             <List />
             <Cards />

@@ -5,14 +5,15 @@ import {connect} from 'react-redux'
 import {addedComplex, addedRooms, 
         addedPriceMin, addedPriceMax, 
         addedSquareMin, addedSquareMax, 
-        itemsLoaded, resetedFilter
+        itemsLoaded, itemsRequested,
+        resetedFilter
     } from '../../actions'
 import Button from '../button'
 import Input from '../input'
 import Select from '../select'
 import ApartmentsService from '../../services/apartments-service'
 
-import './form.less'
+import './filter.less'
 
 class Form extends React.Component{
     inputSqMinRef = React.createRef(null)
@@ -21,14 +22,16 @@ class Form extends React.Component{
     inputPriceMax = React.createRef(null)
     apartmentsService = new ApartmentsService()
     state = {
-        itemsValue: 18
+        itemsValue: 0
     }
 
     componentDidMount(){
-        const {fetchItems} = this.props
+        const {fetchItems, onItemsRequested} = this.props
+        onItemsRequested()
         this.apartmentsService
         .getItems(this.props)
         .then(result => {
+            this.setState({itemsValue: result.length})
             fetchItems(result)
         })
     }
@@ -44,8 +47,9 @@ class Form extends React.Component{
     }
 
     onSubmit = (e) => {
-        const {fetchItems} = this.props
+        const {fetchItems, onItemsRequested} = this.props
         e.preventDefault()
+        onItemsRequested()
         this.apartmentsService
             .getItems(this.props)
             .then(result => {
@@ -56,7 +60,7 @@ class Form extends React.Component{
     onReset = (e) => {
         const {onResetedFilter} = this.props
         e.preventDefault()
-        onResetedFilter()
+        
         this.inputSqMinRef.current.value = ""
         this.inputSqMaxRef.current.value = ""
         this.inputPriceMax.current.value = ""
@@ -202,6 +206,7 @@ const mapDispatchToProps = (dispatch) => {
         onAddedSquareMin: (square) => dispatch(addedSquareMin(square)),
         onAddedSquareMax: (square) => dispatch(addedSquareMax(square)),
         fetchItems: (items) => dispatch(itemsLoaded(items)), 
+        onItemsRequested: () => dispatch(itemsRequested(itemsRequested())),
         onResetedFilter: () => dispatch(resetedFilter())
     }
 }

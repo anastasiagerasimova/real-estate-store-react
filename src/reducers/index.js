@@ -7,7 +7,8 @@ const initialState = {
     roomValues:[], 
     items: [], 
     viewType: "cards",
-    sortby: "priceASC"
+    sortby: "priceASC",
+    favorites: [],
 }
 
 const addRoomsValies = (arr, value) => {
@@ -16,6 +17,11 @@ const addRoomsValies = (arr, value) => {
     }else{
         return [...arr, value].sort()
     }
+}
+
+const removeFromFavorites = (favorites, item) => {
+    const index = favorites.findIndex(favorite => favorite.id === item.id)
+    return [...favorites.slice(0, index), ...favorites.slice(index + 1)]
 }
 
 const sortItems = (items,  value) => {
@@ -99,6 +105,16 @@ const reducer = (state = initialState, action) => {
                 squareMax: 120,
                 complexName: "all",
                 roomValues:[], 
+            }
+        case 'ADD_TO_FAVORITES':
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload]
+            }
+        case 'REMOVE_FROM_FAVORITES':
+            return {
+                ...state,
+                favorites: removeFromFavorites(state.favorites, action.payload)
             }
         default: 
             return state
