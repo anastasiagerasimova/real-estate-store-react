@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 const Card = (props) => {
     const {complex_name, image, price_total, price_sq_m, rooms, square, floor, floors_total, scu, id} = props.item

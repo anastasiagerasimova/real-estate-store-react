@@ -12,13 +12,13 @@ class Favorites extends React.Component{
   
         return (
             <React.Fragment>
-                <div class="container p-0">
-                    <div class="heading-1">Избранное</div>
+                <div className="container p-0">
+                    <div className="heading-1">Избранное</div>
                 </div>
                 <div className="cards-wrapper">
                     <div className="container p-0">
                         <div className="row">
-                            {favorites.map(item => <Card keys={item.id} item={item}/>)}
+                            {favorites.map(item => <Card key={item.id} item={item}/>)}
                         </div>
                     </div>
                 </div>

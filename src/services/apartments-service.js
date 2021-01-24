@@ -11,7 +11,6 @@ export default class ApartmentsService{
     }
 
     getItems = async(props) => {
-        console.log(this.getSearchParams(props))
         const queryString = `http://jsproject.webcademy.ru/items?${this.getSearchParams(props)}`
         const response = await fetch(queryString)
         const data = await response.json()
@@ -21,7 +20,6 @@ export default class ApartmentsService{
     getItem = async(id) => {
         const queryString = `http://jsproject.webcademy.ru/items/${id}`
         const response = await fetch(queryString)
-        console.log(response)
         const data = await response.json()
         return await data
     }
@@ -36,7 +34,6 @@ export default class ApartmentsService{
             },
             body: JSON.stringify(formData)
         });
-        console.log(response)
         const data = await response.json();
         return await data;
     }

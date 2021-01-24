@@ -15,10 +15,10 @@ class ViewPanel extends React.Component{
                 <div className="container">
                     <div className="view-options">
                         <div className="view-options__sort">
-                            <label
+                            {/* <label
                                 for="sort-cards-by"
                                 className="view-options__label"
-                                >Сортировать</label>
+                                >Сортировать</label> */}
                             <Select 
                                 name={"sortby"}
                                 className={"view-options__select"}
@@ -28,10 +28,11 @@ class ViewPanel extends React.Component{
                                     {text: "по площади ↑", value: "squareASC"},
                                     {text: "по площади ↓", value: "squareDESC"}
                                 ]}
+                                label={"Сортировать"}
                                 onChange = {(e) => {
                                     onSortedItems(e.target.value)
                                 }}
-                            >Сортировать</Select>
+                            />
                         </div>
                         <div 
                             className="view-options__type" 

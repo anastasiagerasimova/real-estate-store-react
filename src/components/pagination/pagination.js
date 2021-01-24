@@ -92,7 +92,7 @@ class Pagination extends React.Component{
                                 })
                             }}
                         >
-                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            <i className="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>
                     </li>
                     {
@@ -128,7 +128,7 @@ class Pagination extends React.Component{
                                 })
                             }}
                         >
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <i className="fa fa-arrow-right" aria-hidden="true"></i>
                         </a>
                     </li>
                 </ul>

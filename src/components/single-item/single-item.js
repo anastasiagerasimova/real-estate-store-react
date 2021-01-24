@@ -24,8 +24,6 @@ class SingleItem extends React.Component{
             })
     }
 
-    
-
     onOpenedModal = () => {
         this.setState((state) => {
             return{

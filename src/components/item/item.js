@@ -1,10 +1,10 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 const Item = (props) => {
     const {complex_name, price_total, price_sq_m, rooms, square, floor, floors_total, scu} = props.item
     return (
-        <a className="panel">
+        <div className="panel">
             <div className="panel__artikul">{scu}</div>
             <div className="panel__name">
                 <div>ЖК {complex_name}</div>
@@ -20,7 +20,7 @@ const Item = (props) => {
                     <i className="fas fa-heart"></i>
                 </button>
             </div>
-        </a> 
+        </div> 
     )
 }
 

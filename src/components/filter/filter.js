@@ -1,5 +1,5 @@
 import React from 'react'
-import {compose} from 'redux'
+// import {compose} from 'redux'
 import {connect} from 'react-redux'
 
 import {addedComplex, addedRooms, 
@@ -60,6 +60,8 @@ class Form extends React.Component{
     onReset = (e) => {
         const {onResetedFilter} = this.props
         e.preventDefault()
+
+        onResetedFilter()
         
         this.inputSqMinRef.current.value = ""
         this.inputSqMaxRef.current.value = ""
@@ -73,7 +75,7 @@ class Form extends React.Component{
 
     render(){
         const {
-            pricemin, pricemax, sqmin, sqmax, complex, rooms, 
+            complex, rooms, 
             onAddeComplex, onAddedRooms, onAddedPriceMin, onAddedPriceMax, onAddedSquareMin, onAddedSquareMax
         } = this.props
 
@@ -100,13 +102,53 @@ class Form extends React.Component{
                     <div className="filter__col rooms">
                         <div className="filter__label">Комнат:</div>
                         <div className="rooms__wrapper"
-                            onChange={(e)=> {onAddedRooms(e.target.value)}}
+                            // onChange={(e)=> {onAddedRooms(e.target.value)}}
                         >
-                            <Input name={"rooms"} type={"checkbox"} className={"rooms__checkbox"} value={"1"} label={"1"} checked={rooms.includes("1")}/>
-                            <Input name={"rooms"} type={"checkbox"} className={"rooms__checkbox"} value={"2"} label={"2"} checked={rooms.includes("2")}/>
-                            <Input name={"rooms"} type={"checkbox"} className={"rooms__checkbox"} value={"3"} label={"3"} checked={rooms.includes("3")}/>
-                            <Input name={"rooms"} type={"checkbox"} className={"rooms__checkbox"} value={"4"} label={"4"} checked={rooms.includes("4")}/>
-                            <Input name={"rooms"} type={"checkbox"} className={"rooms__checkbox"} value={"5"} label={"5"} checked={rooms.includes("5")}/>
+                            <Input 
+                                name={"rooms"} 
+                                type={"checkbox"} 
+                                className={"rooms__checkbox"} 
+                                value={"1"} 
+                                label={"1"} 
+                                checked={rooms.includes("1")} 
+                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                            />
+                            <Input 
+                                name={"rooms"} 
+                                type={"checkbox"} 
+                                className={"rooms__checkbox"} 
+                                value={"2"} 
+                                label={"2"} 
+                                checked={rooms.includes("2")}
+                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                            />
+                            <Input 
+                                name={"rooms"} 
+                                type={"checkbox"} 
+                                className={"rooms__checkbox"} 
+                                value={"3"} 
+                                label={"3"} 
+                                checked={rooms.includes("3")}
+                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                            />
+                            <Input 
+                                name={"rooms"} 
+                                type={"checkbox"} 
+                                className={"rooms__checkbox"} 
+                                value={"4"} 
+                                label={"4"} 
+                                checked={rooms.includes("4")}
+                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                            />
+                            <Input 
+                                name={"rooms"} 
+                                type={"checkbox"} 
+                                className={"rooms__checkbox"} 
+                                value={"5"} 
+                                label={"5"} 
+                                checked={rooms.includes("5")}
+                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                            />
                         </div>
                     </div>
                     <div className="filter__col">

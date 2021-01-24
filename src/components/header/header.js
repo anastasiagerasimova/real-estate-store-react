@@ -12,11 +12,11 @@ const Header = () => {
                 </div>
 
                 <div className="top-panel__favourites">
-                    <Link to="/favourites" class="btn-show-favourites mr-5">
-                        <i class="fas fa-heart"></i> Избранное
+                    <Link to="/favourites" className="btn-show-favourites mr-5">
+                        <i className="fas fa-heart"></i> Избранное
                     </Link>
-                    <Link to="/bids" class="btn-show-favourites">
-                        <i class="fas fa-file-alt"></i> Заявки
+                    <Link to="/bids" className="btn-show-favourites">
+                        <i className="fas fa-file-alt"></i> Заявки
                     </Link>
                 </div>
             </div>
