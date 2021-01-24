@@ -9,6 +9,8 @@ const initialState = {
     viewType: "cards",
     sortby: "priceASC",
     favorites: [],
+    bids: [],
+    pages: 10
 }
 
 const addRoomsValies = (arr, value) => {
@@ -115,6 +117,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 favorites: removeFromFavorites(state.favorites, action.payload)
+            }
+        case 'FETCH_BIDS_SUCCESS':
+            return{
+                ...state,
+                bids: action.payload
+            }
+        case 'FETCH_BIDS_REQUEST':
+            return{
+                ...state,
+                bids: []
             }
         default: 
             return state

@@ -1,19 +1,38 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 
 import Filter from '../filter'
 import ViewPanel from '../view-panel'
 import Cards from '../cards'
 import List from '../list'
 
-const HomePage = () => {
-    return(
-        <div className="">
-            <Filter />
-            <ViewPanel />
-            <List />
-            <Cards />
-        </div>
-    )
+// const HomePage = ({history}) => {
+//     console.log(history)
+//     return(
+//         <div className="">
+//             <Filter />
+//             <ViewPanel />
+//             <List />
+//             <Cards onItemSelected={(itemId) => history.push(`/item/${itemId}`)}/>
+//         </div>
+//     )
+// }
+
+// export default withRouter(HomePage)
+
+class HomePage extends React.Component{
+
+    render(){
+        const{history} = this.props
+        return(
+            <div className="">
+                <Filter />
+                <ViewPanel />
+                <List />
+                <Cards onItemSelected={(itemId) => history.push(`/item/${itemId}`)}/>
+            </div>
+        )
+    }
 }
 
-export default HomePage
+export default withRouter(HomePage)

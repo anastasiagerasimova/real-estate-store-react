@@ -1,7 +1,7 @@
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import Header from '../header'
 import Logo from '../logo'
-import {HomePage, SingleItemPage, FavoritesPage} from '../pages'
+import {HomePage, SingleItemPage, FavoritesPage, BidsPage} from '../pages'
 
 import './app.less'
 
@@ -13,7 +13,7 @@ const App = () => {
             <Switch>
                 <Route path="/" exact component={HomePage}/>
                 <Route path="/favourites" component={FavoritesPage}/>
-                <Route path="/bids" render={() => <h1>bids</h1>}/>
+                <Route path="/bids" component={BidsPage}/>
                 {/* <Route path="/item/:id" 
                     render={({match}) => {<SingleItemPage selectedItemID={match.params.id} />}}
                 /> */}
@@ -24,4 +24,4 @@ const App = () => {
     )
 }
 
-export default App
+export default App 

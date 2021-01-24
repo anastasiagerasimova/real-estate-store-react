@@ -87,6 +87,19 @@ const removedFromFavorites = (value) => {
     }
 }
 
+const bidsLoaded = (value) => {
+    return{
+        type: 'FETCH_BIDS_SUCCESS',
+        payload: value
+    }
+}
+
+const bidsRequested = () => {
+    return{
+        type: 'FETCH_BIDS_REQUEST',
+    }
+}
+
 export {
     addedComplex,
     addedRooms,
@@ -100,5 +113,7 @@ export {
     sortedItems,
     resetedFilter,
     addedToFavorites,
-    removedFromFavorites
+    removedFromFavorites,
+    bidsLoaded,
+    bidsRequested
 }

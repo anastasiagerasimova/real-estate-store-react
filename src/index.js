@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, HashRouter} from 'react-router-dom'
 
 import {ApartmentsProvider} from './components/apartments-context'
 import ApartmentsService from './services/apartments-service'
@@ -17,9 +17,9 @@ ReactDOM.render((
     <Provider store={store}>
         <ErrorBoundry>
             <ApartmentsProvider value={apartmentsService}>
-                <Router>
+                <HashRouter>
                     <App />
-                </Router>
+                </HashRouter>
             </ApartmentsProvider>
         </ErrorBoundry>
     </Provider>

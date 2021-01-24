@@ -91,6 +91,9 @@ module.exports = (env = {}) => {
         },
         plugins: getPlugins(),
         devServer: {
+            historyApiFallback: true,
+            contentBase: './',
+            hot: true,
             open: true,
             contentBase: path.resolve(__dirname, 'dist'),
             port: 3000

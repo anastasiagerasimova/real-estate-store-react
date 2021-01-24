@@ -3,9 +3,10 @@ import {Link} from 'react-router-dom'
 
 const Card = (props) => {
     const {complex_name, image, price_total, price_sq_m, rooms, square, floor, floors_total, scu, id} = props.item
+    const {onItemSelected} = props
     return  (
         <article className="col-md-4">
-        <Link to={`/item/${id}`} className="card">
+        <div className="card" onClick={() => onItemSelected(id)}>
             <div className="card__header">
                 <div className="card__title">
                     ЖК {complex_name}
@@ -48,7 +49,7 @@ const Card = (props) => {
                 <div className="card__art">{scu}</div>
                 <div className="card__floor">Этаж {floor} из {floors_total}</div>
             </div>
-        </Link>
+        </div>
         </article>
     )
 }

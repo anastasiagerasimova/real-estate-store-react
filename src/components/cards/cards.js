@@ -20,7 +20,7 @@ class Cards extends React.Component{
     // }
 
     render(){
-        const {items, viewType} = this.props
+        const {items, viewType, onItemSelected} = this.props
 
         if(viewType !== 'cards') {
             return null
@@ -30,7 +30,7 @@ class Cards extends React.Component{
                 <div className="container p-0">
                     <div className="row">
                         {items.map(item => {
-                            return <Card key={item.id} item={item}/>
+                            return <Card key={item.id} item={item} onItemSelected={onItemSelected}/>
                         })}
                     </div>
                 </div>

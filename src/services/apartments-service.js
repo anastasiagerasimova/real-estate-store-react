@@ -21,11 +21,12 @@ export default class ApartmentsService{
     getItem = async(id) => {
         const queryString = `http://jsproject.webcademy.ru/items/${id}`
         const response = await fetch(queryString)
+        console.log(response)
         const data = await response.json()
         return await data
     }
 
-    submitForm = async(formData)=> {
+    submitForm = async(formData) => {
         const queryString = 'http://jsproject.webcademy.ru/bidnew';
 
         const response = await fetch(queryString, {
@@ -35,7 +36,14 @@ export default class ApartmentsService{
             },
             body: JSON.stringify(formData)
         });
+        console.log(response)
         const data = await response.json();
         return await data;
+    }
+
+    getBids = async() => {
+        const response = await fetch('http://jsproject.webcademy.ru/bids')
+        const data = await response.json()
+        return await data
     }
 }
