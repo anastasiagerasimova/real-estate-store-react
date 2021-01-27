@@ -73,10 +73,13 @@ class Pagination extends React.Component{
 
 
     render(){
-        const {bids, pages} = this.props
+        const {bids, pages, bidsError, bidsLoading} = this.props
         const numberOfPages = Array(Math.ceil(bids.length/pages)).fill('').map((item, index) => index+1)
         const {arrOfCurrButtons, currentButton} = this.state
   
+        if(bidsError || bidsLoading){
+            return null
+        }
         return(
             <div className="container p-0">
                 <ul className="pagination">
@@ -110,7 +113,7 @@ class Pagination extends React.Component{
                                             this.setState({currentButton: btn})
                                         }}
                                     >
-                                            {btn}
+                                        {btn}
                                     </a>
                                 </li>
                             )
@@ -137,10 +140,12 @@ class Pagination extends React.Component{
     }
 }
 
-const mapStateToProps = ({bids, pages}) => {
+const mapStateToProps = ({bidList:{bids, pages, bidsError, bidsLoading}}) => {
     return{
         bids,
-        pages
+        pages,
+        bidsError,
+        bidsLoading
     }
 }
 

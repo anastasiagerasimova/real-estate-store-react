@@ -1,17 +1,16 @@
 import React from 'react'
-// import {compose} from 'redux'
+import {compose} from 'redux'
 import {connect} from 'react-redux'
 
+import {withApartmentsService} from '../hoc'
 import {addedComplex, addedRooms, 
         addedPriceMin, addedPriceMax, 
         addedSquareMin, addedSquareMax, 
-        itemsLoaded, itemsRequested,
         resetedFilter
     } from '../../actions'
 import Button from '../button'
 import Input from '../input'
 import Select from '../select'
-import ApartmentsService from '../../services/apartments-service'
 
 import './filter.less'
 
@@ -20,26 +19,27 @@ class Form extends React.Component{
     inputSqMaxRef = React.createRef(null)
     inputPriceMin = React.createRef(null)
     inputPriceMax = React.createRef(null)
-    apartmentsService = new ApartmentsService()
     state = {
         itemsValue: 0
     }
 
     componentDidMount(){
-        const {fetchItems, onItemsRequested} = this.props
-        onItemsRequested()
-        this.apartmentsService
-        .getItems(this.props)
-        .then(result => {
-            this.setState({itemsValue: result.length})
-            fetchItems(result)
-        })
+        const {apartmentsService} = this.props
+        const searchParams = apartmentsService.getSearchParams(this.props)
+
+        apartmentsService
+            .getItems(`?${searchParams}`)
+            .then(result => {
+                this.setState({itemsValue: result.length})
+            })
     }
 
     componentDidUpdate(prevProps){
+        const {apartmentsService} = this.props
         if(prevProps !== this.props){
-            this.apartmentsService
-                .getItems(this.props)
+            const searchParams = apartmentsService.getSearchParams(this.props)
+            apartmentsService
+                .getItems(`?${searchParams}`)
                 .then(result => {
                     this.setState({itemsValue: result.length})
                 })
@@ -47,14 +47,11 @@ class Form extends React.Component{
     }
 
     onSubmit = (e) => {
-        const {fetchItems, onItemsRequested} = this.props
+        const {getSearchParams, apartmentsService} = this.props
         e.preventDefault()
-        onItemsRequested()
-        this.apartmentsService
-            .getItems(this.props)
-            .then(result => {
-                fetchItems(result)
-            })
+
+        const searchParams = apartmentsService.getSearchParams(this.props)
+        getSearchParams(searchParams)
     }
 
     onReset = (e) => {
@@ -89,8 +86,8 @@ class Form extends React.Component{
                             name={"complex"}
                             className={"filter__dropdown"}
                             options={[
-                                {text: "Все проекты", value: "all"},
-                                {text: "ЖК Генеральский", value: "Генеральский", selected:true},
+                                {text: "Все проекты", value: "all", selected:true},
+                                {text: "ЖК Генеральский", value: "Генеральский"},
                                 {text: "ЖК Речной", value: "Речной"},
                                 {text: "ЖК Лесной", value: "Лесной"},
                                 {text: "ЖК Квантум", value: "Квантум"}
@@ -227,7 +224,7 @@ class Form extends React.Component{
     }
 }
 
-const mapStateToProps = ({priceMin, priceMax, squareMin, squareMax, complexName, roomValues}) => {
+const mapStateToProps = ({searchParams: {priceMin, priceMax, squareMin, squareMax, complexName, roomValues}}) => {
     return{
         pricemin: priceMin, 
         pricemax: priceMax, 
@@ -236,7 +233,6 @@ const mapStateToProps = ({priceMin, priceMax, squareMin, squareMax, complexName,
         complex: complexName, 
         rooms: roomValues
     }
-
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -247,11 +243,11 @@ const mapDispatchToProps = (dispatch) => {
         onAddedPriceMax: (price) => dispatch(addedPriceMax(price)),
         onAddedSquareMin: (square) => dispatch(addedSquareMin(square)),
         onAddedSquareMax: (square) => dispatch(addedSquareMax(square)),
-        fetchItems: (items) => dispatch(itemsLoaded(items)), 
-        onItemsRequested: () => dispatch(itemsRequested(itemsRequested())),
         onResetedFilter: () => dispatch(resetedFilter())
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
-
+export default compose(
+    withApartmentsService,
+    connect(mapStateToProps, mapDispatchToProps)
+)(Form)

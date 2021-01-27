@@ -23,10 +23,16 @@ import List from '../list'
 class HomePage extends React.Component{
 
     render(){
-        const{history} = this.props
+        const{history, location} = this.props
         return(
             <div className="">
-                <Filter />
+                <Filter 
+                    getSearchParams={(searchParams) => {
+                        if(location.search !== `?${searchParams}`){
+                            history.push(`/?${searchParams}`)
+                        }
+                    }}
+                />
                 <ViewPanel />
                 <List />
                 <Cards onItemSelected={(itemId) => history.push(`/item/${itemId}`)}/>

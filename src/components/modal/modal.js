@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {withApartmentsService} from '../hoc'
 import Input from '../input'
 import Button from '../button'
 import {createControls, validate, validateForm} from '../form/formFrameworks'
@@ -38,10 +39,9 @@ class Modal extends React.Component {
             })
         }
     }
-    apartmentsService = new ApartmentsService()
 
     onChangeHandler(e, controlName){
-        const formControls = {... this.state.formControls}
+        const formControls = {...this.state.formControls}
         const control = {...formControls[controlName]}
 
         control.value = e.target.value
@@ -57,15 +57,13 @@ class Modal extends React.Component {
     }
 
     submitForm = (e) => {
-        const {onOpenedModal} = this.props
+        const {onOpenedModal, apartmentsService} = this.props
 
         e.preventDefault()
-        this.apartmentsService
+        apartmentsService
             .submitForm({name: name.value, phone: phone.value})
-            .then(result => {
-            })
 
-        const formControls = {... this.state.formControls}
+        const formControls = {...this.state.formControls}
         formControls.name.value = ''
         formControls.phone.value = ''
 
@@ -145,5 +143,5 @@ class Modal extends React.Component {
     }
 }
 
-export default Modal
+export default withApartmentsService(Modal)
 

@@ -145,7 +145,7 @@ class SingleItem extends React.Component{
     }
 }
 
-const mapStateToProps = ({favorites}) => {
+const mapStateToProps = ({itemList: {favorites}}) => {
     return{
         favorites
     }

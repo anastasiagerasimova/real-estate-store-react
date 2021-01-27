@@ -1,28 +1,30 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {compose} from 'redux'
 
+import {withApartmentsService} from '../hoc'
 import Bid from '../bid'
-import ApartmentsService from '../../services/apartments-service'
-import {bidsLoaded, bidsRequested} from '../../actions'
+import {fetchBids} from '../../actions'
+import Spinner from '../spinner'
+import ErrorIndicator from '../error-indicator'
 
 import './bids.less'
 
-class Bids extends React.Component{
-    apartmentsService = new ApartmentsService()
+class BidsContainer extends React.Component{
 
     componentDidMount(){
-        const {fetchBids, onBidsRequested} = this.props
-        onBidsRequested()
-        this.apartmentsService
-            .getBids()
-            .then((result) => {
-                fetchBids(result)
-            })
+        const {fetchBids} = this.props
+        fetchBids()
     }
 
     render(){
-        const {bids, currentPage, pages} = this.props
+        const {bids, currentPage, pages, bidsLoading, error} = this.props
         const currentBidsArr = bids.slice(currentPage*pages - pages + 1, currentPage*pages + 1)
+
+        const spinner = bidsLoading ? <Spinner /> : null
+        const content = (!bidsLoading && !error) ? <Bids currentBidsArr={currentBidsArr}/> : null
+        const errorMessage = error ? <ErrorIndicator /> : null
+
         return(
             <React.Fragment>
                 <div className="container p-0 mb-5">
@@ -31,13 +33,9 @@ class Bids extends React.Component{
 
                 <div className="panels-wrapper">
                     <div className="container p-0">
-
-                    {
-                        currentBidsArr.map(bid =>{
-                            return <Bid key={bid.id} bid={bid}/>
-                        })
-                    }
-
+                        {spinner}
+                        {content}
+                        {errorMessage}
                     </div>
                 </div>
             </React.Fragment>
@@ -45,18 +43,31 @@ class Bids extends React.Component{
     }
 }
 
-const mapStateToProps = ({bids, pages}) => {
+const Bids = ({currentBidsArr}) => {
+    return (
+        currentBidsArr.map(bid => {
+            return <Bid key={bid.id} bid={bid}/>
+        })
+    )
+}
+
+const mapStateToProps = ({bidList: {bids, pages, bidsLoading, bidsError}}) => {
     return{
         bids,
-        pages
+        pages,
+        bidsLoading,
+        error: bidsError
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const {apartmentsService} = ownProps
     return{
-        fetchBids: (bids) => dispatch(bidsLoaded(bids)),
-        onBidsRequested: () => dispatch(bidsRequested())
+        fetchBids: () => dispatch(fetchBids(apartmentsService)()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bids)
+export default compose(
+    withApartmentsService,
+    connect(mapStateToProps, mapDispatchToProps)
+)(BidsContainer)

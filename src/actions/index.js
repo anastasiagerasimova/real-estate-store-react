@@ -53,6 +53,13 @@ const itemsRequested = () => {
     }
 }
 
+const itemsError = (value) => {
+    return{
+        type: 'FETCH_ITEMS_FAILURE',
+        payload: value
+    }
+}
+
 const setViewType = (value) => {
     return{
         type: 'SET_VIEW_TYPE',
@@ -100,6 +107,29 @@ const bidsRequested = () => {
     }
 }
 
+const bidsError = (value) => {
+    return{
+        type: 'FETCH_BIDS_FAILURE',
+        payload: value
+    }
+}
+
+const fetchItems = (apartmentsService, location) => () => (dispatch) => {
+    dispatch(itemsRequested())
+    apartmentsService
+        .getItems(location.search)
+        .then(result => dispatch(itemsLoaded(result)))
+        .catch((error) => dispacth(itemsError(error)))
+}
+
+const fetchBids = (apartmentsService) => () => (dispatch) =>{
+    dispatch(bidsRequested())
+    apartmentsService
+        .getBids()
+        .then((result) => dispatch(bidsLoaded(result)))
+        .catch((error) => dispatch(bidsError(error)))
+}
+
 export {
     addedComplex,
     addedRooms,
@@ -107,13 +137,11 @@ export {
     addedPriceMax,
     addedSquareMin,
     addedSquareMax,
-    itemsLoaded,
-    itemsRequested,
+    fetchItems,
     setViewType,
     sortedItems,
     resetedFilter,
     addedToFavorites,
     removedFromFavorites,
-    bidsLoaded,
-    bidsRequested
+    fetchBids
 }

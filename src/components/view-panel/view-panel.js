@@ -65,7 +65,7 @@ class ViewPanel extends React.Component{
     }
 }
 
-const mapStateToProps = ({viewType}) => {
+const mapStateToProps = ({itemList: {viewType}}) => {
     return {
         viewType
     }

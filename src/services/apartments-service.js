@@ -10,8 +10,8 @@ export default class ApartmentsService{
         return searchParams.toString()
     }
 
-    getItems = async(props) => {
-        const queryString = `http://jsproject.webcademy.ru/items?${this.getSearchParams(props)}`
+    getItems = async(searchParams) => {
+        const queryString = `http://jsproject.webcademy.ru/items${searchParams}`
         const response = await fetch(queryString)
         const data = await response.json()
         return await data

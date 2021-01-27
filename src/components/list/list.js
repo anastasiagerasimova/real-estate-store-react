@@ -93,7 +93,7 @@ class List extends React.Component{
 }
 
 
-const mapStateToProps = ({items, viewType}) => {
+const mapStateToProps = ({itemList: {items, viewType}}) => {
     return {
         items,
         viewType
