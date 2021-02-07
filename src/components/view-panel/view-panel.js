@@ -9,7 +9,7 @@ import './view-panel.less'
 
 class ViewPanel extends React.Component{
     render(){
-        const {onSetViewType, onSortedItems} = this.props
+        const {onSetViewType, onSortedItems, viewType} = this.props
         return(
             <div className="view-options-wrapper">
                 <div className="container">
@@ -38,6 +38,7 @@ class ViewPanel extends React.Component{
                             className="view-options__type" 
                             onClick={(e)=> {
                                 if(e.target.name === "displayType") {
+                                    e.target.checked
                                     onSetViewType(e.target.value)
                                 }
                             }}
@@ -47,7 +48,7 @@ class ViewPanel extends React.Component{
                                 className={"view-options__radio"}
                                 name={"displayType"}
                                 value={"cards"}
-                                defaultChecked={true}
+                                defaultChecked={viewType==='cards'}
                                 label={<i className="fas fa-th-large"></i>}
                             />
                             <Input
@@ -55,6 +56,7 @@ class ViewPanel extends React.Component{
                                 className={"view-options__radio"}
                                 name={"displayType"}
                                 value={"list"}
+                                defaultChecked={viewType==='list'}
                                 label={<i className="fas fa-bars"></i>}
                             />
                         </div>

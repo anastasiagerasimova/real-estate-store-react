@@ -1,13 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {compose} from 'redux'
 
 import Item from '../item'
+import {withFavoritesMethod} from '../hoc'
 
 import './list.less'
 
 class List extends React.Component{
+
     render(){
-        const {items, viewType} = this.props
+        const {items, viewType, onItemSelected} = this.props
 
         if(viewType !== 'list') {
             return null
@@ -82,7 +85,7 @@ class List extends React.Component{
                     </div> 
 
                     {items.map(item => {
-                            return <Item key={item.id} item={item}/>
+                            return <Item key={item.id} item={item} onItemSelected={onItemSelected} {...this.props}/>
                         })
                     }
                 </div>
@@ -92,7 +95,6 @@ class List extends React.Component{
     }
 }
 
-
 const mapStateToProps = ({itemList: {items, viewType}}) => {
     return {
         items,
@@ -100,4 +102,7 @@ const mapStateToProps = ({itemList: {items, viewType}}) => {
     }
 }
 
-export default connect(mapStateToProps)(List)
+export default compose(
+    withFavoritesMethod,
+    connect(mapStateToProps)
+)(List)

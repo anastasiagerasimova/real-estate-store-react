@@ -66,10 +66,6 @@ class Form extends React.Component{
         this.inputPriceMin.current.value = ""
     }
 
-    onResetForm = () => {
-
-    }
-
     render(){
         const {
             complex, rooms, 
@@ -92,14 +88,23 @@ class Form extends React.Component{
                                 {text: "ЖК Лесной", value: "Лесной"},
                                 {text: "ЖК Квантум", value: "Квантум"}
                             ]}
-                            onChange={(e) => {onAddeComplex(e.target.value)}}
+                            onChange={(e) => {
+                                e.preventDefault()
+                                onAddeComplex(e.target.value)
+                            }}
                             value={complex}
                         />
                     </div>
                     <div className="filter__col rooms">
                         <div className="filter__label">Комнат:</div>
-                        <div className="rooms__wrapper"
-                            // onChange={(e)=> {onAddedRooms(e.target.value)}}
+                        <div 
+                            className="rooms__wrapper"
+                            onClick={(e) => {
+                                if(e.target.name === "rooms"){
+                                    e.target.checked
+                                    onAddedRooms(e.target.value)
+                                }
+                            }}
                         >
                             <Input 
                                 name={"rooms"} 
@@ -107,8 +112,9 @@ class Form extends React.Component{
                                 className={"rooms__checkbox"} 
                                 value={"1"} 
                                 label={"1"} 
-                                checked={rooms.includes("1")} 
-                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                                // checked={rooms.includes("1")} 
+                                defaultChecked={rooms.includes("1")} 
+                                // onChange={(e)=> onAddedRooms(e.target.value)}
                             />
                             <Input 
                                 name={"rooms"} 
@@ -116,8 +122,9 @@ class Form extends React.Component{
                                 className={"rooms__checkbox"} 
                                 value={"2"} 
                                 label={"2"} 
-                                checked={rooms.includes("2")}
-                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                                // checked={rooms.includes("2")}
+                                defaultChecked={rooms.includes("2")} 
+                                // onChange={(e)=> onAddedRooms(e.target.value)}
                             />
                             <Input 
                                 name={"rooms"} 
@@ -125,8 +132,9 @@ class Form extends React.Component{
                                 className={"rooms__checkbox"} 
                                 value={"3"} 
                                 label={"3"} 
-                                checked={rooms.includes("3")}
-                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                                // checked={rooms.includes("3")}
+                                defaultChecked={rooms.includes("3")} 
+                                // onChange={(e)=> onAddedRooms(e.target.value)}
                             />
                             <Input 
                                 name={"rooms"} 
@@ -134,8 +142,9 @@ class Form extends React.Component{
                                 className={"rooms__checkbox"} 
                                 value={"4"} 
                                 label={"4"} 
-                                checked={rooms.includes("4")}
-                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                                // checked={rooms.includes("4")}
+                                defaultChecked={rooms.includes("4")} 
+                                // onChange={(e)=> onAddedRooms(e.target.value)}
                             />
                             <Input 
                                 name={"rooms"} 
@@ -143,8 +152,9 @@ class Form extends React.Component{
                                 className={"rooms__checkbox"} 
                                 value={"5"} 
                                 label={"5"} 
-                                checked={rooms.includes("5")}
-                                onChange={(e)=> {onAddedRooms(e.target.value)}}
+                                // checked={rooms.includes("5")}
+                                defaultChecked={rooms.includes("5")} 
+                                // onChange={(e)=> onAddedRooms(e.target.value)}
                             />
                         </div>
                     </div>

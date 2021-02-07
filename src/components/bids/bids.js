@@ -17,6 +17,17 @@ class BidsContainer extends React.Component{
         fetchBids()
     }
 
+    getSnapshotBeforeUpdate(prevProps, prevState){
+        const topScroll = window.scrollY;
+        return {topScroll}
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(snapshot.topScroll){
+            window.scrollTo(0, 0)
+        }
+    }
+
     render(){
         const {bids, currentPage, pages, bidsLoading, error} = this.props
         const currentBidsArr = bids.slice(currentPage*pages - pages + 1, currentPage*pages + 1)

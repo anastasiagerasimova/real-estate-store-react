@@ -3,20 +3,21 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {compose} from 'redux'
 
-import {withApartmentsService} from '../hoc'
-// import compose from '../../utils/compose'
+import {withApartmentsService, withFavoritesMethod} from '../hoc'
 import Card from '../card'
-import {fetchItems} from '../../actions'
+import {fetchItems, removedFromFavorites, addedToFavorites} from '../../actions'
 import Spinner from '../spinner'
 import ErrorIndicator from '../error-indicator'
 
 import './cards.less'
 
-const Cards = ({items, onItemSelected}) => {
+const Cards = (props) => {
+    const {items, onItemSelected} = props
+
     return (
         <div className="row">
             {items.map(item => {
-                return <Card key={item.id} item={item} onItemSelected={onItemSelected}/>
+                return <Card key={item.id} item={item} onItemSelected={onItemSelected} {...props}/>
             })}
         </div>
     )
@@ -65,7 +66,7 @@ const mapStateToProps = ({itemList: {items, viewType, itemsLoading, itemsError}}
         items,
         viewType,
         cardsLoading: itemsLoading,
-        cardsError: itemsError
+        cardsError: itemsError,
     }
 }
 
@@ -79,5 +80,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default compose(
     withRouter,
     withApartmentsService,
+    withFavoritesMethod,
     connect(mapStateToProps, mapDispatchToProps)
 )(CardsContainer)

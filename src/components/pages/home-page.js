@@ -6,26 +6,13 @@ import ViewPanel from '../view-panel'
 import Cards from '../cards'
 import List from '../list'
 
-// const HomePage = ({history}) => {
-//     console.log(history)
-//     return(
-//         <div className="">
-//             <Filter />
-//             <ViewPanel />
-//             <List />
-//             <Cards onItemSelected={(itemId) => history.push(`/item/${itemId}`)}/>
-//         </div>
-//     )
-// }
-
-// export default withRouter(HomePage)
-
 class HomePage extends React.Component{
 
     render(){
         const{history, location} = this.props
+
         return(
-            <div className="">
+            <div>
                 <Filter 
                     getSearchParams={(searchParams) => {
                         if(location.search !== `?${searchParams}`){
@@ -34,7 +21,7 @@ class HomePage extends React.Component{
                     }}
                 />
                 <ViewPanel />
-                <List />
+                <List onItemSelected={(itemId) => history.push(`/item/${itemId}`)}/>
                 <Cards onItemSelected={(itemId) => history.push(`/item/${itemId}`)}/>
             </div>
         )

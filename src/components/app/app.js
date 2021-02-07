@@ -14,12 +14,8 @@ const App = () => {
                 <Route path="/" exact component={HomePage}/>
                 <Route path="/favourites" component={FavoritesPage}/>
                 <Route path="/bids" component={BidsPage}/>
-                {/* <Route path="/item/:id" 
-                    render={({match}) => {<SingleItemPage selectedItemID={match.params.id} />}}
-                /> */}
                 <Route path='/item/:id' render={({match}) => <SingleItemPage selectedItemId={match.params.id} />} />
             </Switch>
-            {/* <HomePage /> */}
         </div>
     )
 }

@@ -3,15 +3,32 @@ import React from 'react'
 
 const Card = (props) => {
     const {complex_name, image, price_total, price_sq_m, rooms, square, floor, floors_total, scu, id} = props.item
-    const {onItemSelected} = props
+    const {favorites, item, onRemovedFromFavorites, onAddedToFavorites, onItemSelected} = props
+
+    const checkInFavorites = (id) => {
+        return favorites.some(item => item.id === id)
+    }
+
     return  (
         <article className="col-md-4">
-            <div className="card" onClick={() => onItemSelected(id)}>
+            <div 
+                className="card" 
+                onClick={(e) => onItemSelected(id)}
+            >
                 <div className="card__header">
                     <div className="card__title">
                         ЖК {complex_name}
                     </div>
-                    <div className="card__like" onClick={(e) => e.preventDefault()}>
+                    <div 
+                        className={`card__like ${checkInFavorites(id) ? 'card__like--active ' : ''}`} 
+                        onClick={(e) => { 
+                            e.preventDefault()
+                            e.stopPropagation()
+                            checkInFavorites(id) 
+                            ? (onRemovedFromFavorites(item))
+                            :(onAddedToFavorites(item))
+                        }}
+                    >
                         <i className="fas fa-heart"></i>
                     </div>
                 </div>
